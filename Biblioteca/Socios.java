@@ -1,29 +1,19 @@
 package Biblioteca;
-
+import java.util.Random;
 public class Socios {
 
 	private String nombre;
-	private int codigoSocio;
+	public int codigoSocio;
 	private String correo;
-	private static int cantidadLibrosPrestados = 0;
+	private int cantidadLibrosPrestados;
 	
 	
-	public Socios(String nombre, String correo) {
-		
+	public void Socios(String nombre, String correo) {
 		this.nombre = nombre;
 		this.correo = correo;
-		int generadorCodigo = (int) (Math.random()*5);
-		this.codigoSocio = generadorCodigo;
-		for (Socios u : Biblioteca.baseDatosSocios) {
-			if (Biblioteca.baseDatosSocios.contains(codigoSocio) ) {
-				generadorCodigo = (int) (Math.random()*5);
-				this.codigoSocio = generadorCodigo;
-			} else 
-		break;
-		}
-		return;
-	}
-	
+		this.cantidadLibrosPrestados = 0;
+		
+	}	
 	 public String getNombre() {
 		return nombre;
 	}
@@ -57,12 +47,12 @@ public class Socios {
 		return cantidadLibrosPrestados;
 	}
 
-	public static void sumarPrestamo() {
-		cantidadLibrosPrestados++;
+	public void sumarPrestamo() {
+		this.cantidadLibrosPrestados++;
 	}
 	
-	public static void restarPrestamos() {
-		cantidadLibrosPrestados--;
+	public void restarPrestamos() {
+		this.cantidadLibrosPrestados--;
 	}
 
 	 public static boolean validacionCorreo(String correo) {
@@ -92,11 +82,8 @@ public class Socios {
 	        return true;   
 	}
 	 
-	 public  static boolean verificacionNombre(String nombre) {
-		 if (nombre != null || nombre.isEmpty()) {
-			 return false;
-		 }
-		 return true;
+	 public boolean verificacionNombre(String nombre) {
+		 return nombre != null && !nombre.trim().isEmpty();
 	 }
 
 

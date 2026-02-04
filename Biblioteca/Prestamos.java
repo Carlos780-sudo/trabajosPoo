@@ -1,29 +1,28 @@
 package Biblioteca;
+import java.util.Scanner;
+import java.util.Random;
 
 public class Prestamos {
 	
-	private static boolean prestamoActivo;
-	private int codigoPrestamo;
+	private boolean prestamoActivo;
+	public int codigoPrestamo;
 	public final int maxDiasPrestamo = 10;
 	public final int maxPrestamos= 3;
-	private Date fechaInicioPrestamo; 
-	private Date fechaFinalPrestamo;
+	public String afiliado;
+	public String libro;
 	
-	private Socios socio;
-	private Libros libro;
-	private Date Date;
-	public Socios getSocio() { return socio; }
-	public Libros getLibro() { return libro; }
+	Socios s = new Socios();
 	
-	 public static boolean isPrestamoActivo() {
+
+	public void Prestamos(String afiliado, String libro, int codigoPrestamo) {
+        this.afiliado = afiliado;
+        this.libro = libro;
+        this.codigoPrestamo = codigoPrestamo;
+    }
+	
+	 public boolean isPrestamoActivo() {
 		return prestamoActivo;
 	}
-
-
-	public void setPrestamoActivo(boolean prestamoActivo) {
-		Prestamos.prestamoActivo = prestamoActivo;
-	}
-
 
 	public int getCodigoPrestamo() {
 		return codigoPrestamo;
@@ -35,34 +34,14 @@ public class Prestamos {
 	}
 	
 
-	public Prestamos(Socios socio, Libros libro) {
-		this.socio = socio;
-		this.libro = libro;
-		this.prestamoActivo = true;
-		Date nuevaFecha= new Date();
-		this.fechaInicioPrestamo = nuevaFecha;
-		Date nuevaFecha2= new Date();
-		this.fechaFinalPrestamo = nuevaFecha2;
-		int generadorCodigo = (int) (Math.random()*11);
-		this.codigoPrestamo = generadorCodigo;
-		for (Prestamos u : Biblioteca.baseDatosPrestamos) {
-			if (Biblioteca.baseDatosPrestamos.contains(codigoPrestamo) ) {
-				generadorCodigo = (int) (Math.random()*11);
-				this.codigoPrestamo = generadorCodigo;
-			} else 
-		break;
-		}
-		
-		
- } 
 	public void finalizarPrestamo() {
 		this.prestamoActivo = false; 
-		this.socio.restarPrestamos();
+		this.socios.restarPrestamos();
 	}
 	
 	 @Override
 	 public String toString() {
-		return "Prestamos [codigoPrestamo=" + codigoPrestamo + "Esta activo: " + prestamoActivo + "Fecha vencimiento: " + fechaFinalPrestamo +"]";
+		return "Prestamos [codigoPrestamo=" + codigoPrestamo + "Esta activo: " + prestamoActivo + "Fecha vencimiento: " +"]";
 	 }
 	
 }

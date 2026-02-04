@@ -1,29 +1,21 @@
 package Biblioteca;
 
+import java.util.Random;
+
 public class Libros {
 	
-	private int codigoLibro;
+	public int codigoLibro;
 	private String titulo;
 	private String autor;
 	private int fechaPublicacion;
 	private Boolean disponibilidad;
 	
-	public Libros(String titulo, String autor, int fechaPublicacion){
-		
+	public void Libro(String titulo, String autor, int fechaPublicacion){
 		this.titulo = titulo;
 		this.autor = autor;
 		this.fechaPublicacion = fechaPublicacion;
-		disponibilidad= true;
-		int generadorCodigo= (int) (Math.random()* 8);
-		this.codigoLibro = generadorCodigo;
-		for (Libros u : Biblioteca.baseDatosLibros) {
-			if (Biblioteca.baseDatosLibros.contains(codigoLibro) ) {
-				generadorCodigo = (int) (Math.random()*8);
-				this.codigoLibro = generadorCodigo;
-			} else 
-		break;
-		}
 	}
+	
 	public int getCodigoLibro() {
 		return codigoLibro;
 	}
@@ -51,7 +43,7 @@ public class Libros {
 	public Boolean getDisponibilidad() {
 		return disponibilidad;
 	}
-	public static void setDisponibilidad(Boolean disponibilidad) {
+	public void setDisponibilidad(Boolean disponibilidad) {
 		disponibilidad = disponibilidad;
 	}
 	public void verificadorFecha(int fechaPublicacion) {
