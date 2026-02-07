@@ -11,43 +11,55 @@ public class Biblioteca {
 	public List<Socios> baseDatosSocios = new ArrayList<>();
 	public List<Libros> baseDatosLibros = new ArrayList<>();
 	public List<Prestamos> baseDatosPrestamos = new ArrayList<>();
+	Prestamos nuevo = new Prestamos();
+	Socios miSocio = new Socios();
 	
+	public void devolderLibro (Scanner sc) {
+		System.out.println("Opcion seleccionada: Devolver libro...");
+        sc.nextLine();
+        System.out.print("Ingrese el codigo del prestamo: ");
+        int codigoPrestamo= sc.nextInt();
+        Prestamos prestamoEncontrado = buscarPrestamo(codigoPrestamo);
+        if (prestamoEncontrado == null) {
+        	 System.out.println("Error: codigo erroneo");
+        	 return;
+        } else
+        	System.out.println("Prestamo encontrado " + prestamoEncontrado.getCodigoPrestamo());
+        nuevo.finalizarPrestamo();
+	}
 	
 	public void realizarPrestamo(Scanner sc) {
+		boolean opcionValida = true;
+		Socios sociosPrestamos = null;
 	    System.out.println("\n--- Nuevo Préstamo ---");
-
+	    do {
 	    System.out.print("Introduce el código del socio: ");
-	    int idSocio = sc.nextInt();
-	    Socios socios = buscarSocio(idSocio); 
-
-	    if (socios == null) return; 
-
-	    if (socios.getCantidadLibrosPrestados() >= 3) {
-	        System.out.println("El socio ya tiene el máximo de 3 libros.");
-	        return;
-	    }
-
-	   
+	    int codSocio = sc.nextInt();
+	    sociosPrestamos = buscarSocio(codSocio);
+	    
+	    if (sociosPrestamos == null) {
+	    	System.out.println("Error: socio no encontrado");
+	    	opcionValida = false;
+	    } 
+	    	
+	    } while (opcionValida);
+	    nuevo.cupoDisponible();
+	    Libros libro;
+	    do {
 	    System.out.print("Introduce el código del libro: ");
 	    int idLibro = sc.nextInt();
-	    Libros libro = buscarLibros(idLibro);
-
+	    libro = buscarLibros(idLibro);
 	    if (libro == null) {
 	        System.out.println("Error: Libro no encontrado.");
-	        return;
+	        opcionValida = false;
 	    }
-
-	    
+	    } while(opcionValida);
 	    int nuevoIdPrestamo = generarCodigoUnicoLibro();
-	    Prestamos p = new Prestamos(socios, libro, nuevoIdPrestamo);
-	    
+	    Prestamos p = new Prestamos(sociosPrestamos , libro, nuevoIdPrestamo);
 	    baseDatosPrestamos.add(p);
-	    
-	   
-	    socios.sumarPrestamo();
-	    
+	    p.sumarPrestamo();
 	    System.out.println("Préstamo registrado correctamente.");
-	    System.out.println("Socio: " + socios.getNombre() + " | Libro: " + libro.getTitulo());
+	    System.out.println("Socio: " + miSocio.getNombre() + " | Libro: " + libro.getTitulo());
 	}
 	
 	public int generarCodigoUnicoLibro() {
@@ -166,7 +178,7 @@ public class Biblioteca {
         generarCodigoUnicoLibro();
         Libros nuevoLibro = new Libros();
         baseDatosLibros.add(nuevoLibro);
-        System.out.println("✔ Libro registrado con éxito: " + nuevoLibro);
+        System.out.println("Libro registrado con éxito: " + nuevoLibro);
     }
 	
 	public void darAltaSocio(Scanner sc) {
@@ -174,14 +186,18 @@ public class Biblioteca {
         sc.nextLine(); 
         
         String nombre;
-        while (true) {
+        boolean clicloNombres = true;
+		do {
             System.out.print("Ingrese el Nombre completo: ");
             nombre = sc.nextLine();
-            if (nuevoSocio.verificacionNombre(nombre)) break;
-            System.out.println("❌ Error: el nombre no puede estar vacío.");
-        }
+            if (miSocio.verificacionNombre(nombre) != false) {
+            	clicloNombres = false;	
+            } else 
+            System.out.println("Error: el nombre no puede estar vacío.");
+        } while (clicloNombres);
 
         String correo;
+        
         while (true) {
             System.out.print("Ingrese correo electrónico: ");
             correo = sc.nextLine();

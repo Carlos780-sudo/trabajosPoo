@@ -1,6 +1,5 @@
 package Biblioteca;
-import java.util.Scanner;
-import java.util.Random;
+
 
 public class Prestamos {
 	
@@ -8,18 +7,35 @@ public class Prestamos {
 	public int codigoPrestamo;
 	public final int maxDiasPrestamo = 10;
 	public final int maxPrestamos= 3;
-	public String afiliado;
-	public String libro;
-	
-	Socios s = new Socios();
+	public Socios codigoSocio;
+	public Libros libro;
+	private int cantidadLibrosPrestados;
 	
 
-	public void Prestamos(String afiliado, String libro, int codigoPrestamo) {
-        this.afiliado = afiliado;
+	public Prestamos(Socios codigoSocio, Libros libro, int codigoPrestamo) {
+        this.codigoSocio = codigoSocio;
         this.libro = libro;
         this.codigoPrestamo = codigoPrestamo;
     }
-	
+	public Prestamos() {
+    }
+	public boolean cupoDisponible() {
+	    if (this.cantidadLibrosPrestados >= 3) {
+	        System.out.println("Error: límite máximo de 3 préstamos alcanzado.");
+	        return false; 
+	    }
+	    return true; 
+	}
+
+	public void sumarPrestamo() {
+	    this.cantidadLibrosPrestados++;
+	}
+
+	public void restarPrestamos() {
+	    if (this.cantidadLibrosPrestados > 0) {
+	        this.cantidadLibrosPrestados--;
+	    }
+	}
 	 public boolean isPrestamoActivo() {
 		return prestamoActivo;
 	}
@@ -32,16 +48,23 @@ public class Prestamos {
 	public void setCodigoPrestamo(int codigoPrestamo) {
 		this.codigoPrestamo = codigoPrestamo;
 	}
-	
 
 	public void finalizarPrestamo() {
 		this.prestamoActivo = false; 
-		this.socios.restarPrestamos();
+		this.restarPrestamos();
+	}
+	
+	public int getCantidadLibrosPrestados() {
+		return cantidadLibrosPrestados;
+	}
+	
+	public void setCantidadLibrosPrestados(int cantidadLibrosPrestados) {
+		this.cantidadLibrosPrestados = cantidadLibrosPrestados;
 	}
 	
 	 @Override
 	 public String toString() {
 		return "Prestamos [codigoPrestamo=" + codigoPrestamo + "Esta activo: " + prestamoActivo + "Fecha vencimiento: " +"]";
 	 }
-	
+
 }

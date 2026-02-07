@@ -37,17 +37,7 @@ public class Terminal {
             biblio.realizarPrestamo(sc);
             break;
         case 4:
-            System.out.println("Opcion seleccionada: Devolver libro...");
-            sc.nextLine();
-            System.out.print("Ingrese el codigo del prestamo: ");
-            int codigoPrestamo= sc.nextInt();
-            Prestamos prestamoEncontrado = biblio.buscarPrestamo(codigoPrestamo);
-            if (prestamoEncontrado == null) {
-            	 System.out.println("Error: codigo erroneo");
-            	 return;
-            } else
-            	System.out.println("Prestamo encontrado " + prestamoEncontrado.getCodigoPrestamo());
-            admin.finalizarPrestamo();
+            biblio.devolderLibro(sc);
             break;
         case 5:
         	int opcion2=0;
@@ -88,10 +78,6 @@ public class Terminal {
                  
                  System.out.println("Socio encontrado: " + socioEncontrado2.getNombre());
                  
-                 if (socioEncontrado2.getCantidadLibrosPrestados() >= 3) {
-                     System.out.println("Error: " + socioEncontrado2.getNombre() + " ya alcanzo su limite de 3 libros.");
-                     return;
-                 }
             case 3:
             	 System.out.print("Ingrese el codigo del prestamo: ");
                  int codigoPrestamo2= sc.nextInt();

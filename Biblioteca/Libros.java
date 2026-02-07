@@ -1,7 +1,4 @@
 package Biblioteca;
-
-import java.util.Random;
-
 public class Libros {
 	
 	public int codigoLibro;

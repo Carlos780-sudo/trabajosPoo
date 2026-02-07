@@ -1,19 +1,18 @@
 package Biblioteca;
-import java.util.Random;
 public class Socios {
 
 	private String nombre;
 	public int codigoSocio;
 	private String correo;
-	private int cantidadLibrosPrestados;
 	
-	
-	public void Socios(String nombre, String correo) {
+	public Socios(String nombre, String correo, int codigoSocio) {
 		this.nombre = nombre;
 		this.correo = correo;
-		this.cantidadLibrosPrestados = 0;
-		
+		this.codigoSocio = codigoSocio;
 	}	
+	public Socios() {
+		
+	}
 	 public String getNombre() {
 		return nombre;
 	}
@@ -43,18 +42,6 @@ public class Socios {
 		this.correo = correo;
 	}
 	
-	public int getCantidadLibrosPrestados() {
-		return cantidadLibrosPrestados;
-	}
-
-	public void sumarPrestamo() {
-		this.cantidadLibrosPrestados++;
-	}
-	
-	public void restarPrestamos() {
-		this.cantidadLibrosPrestados--;
-	}
-
 	 public static boolean validacionCorreo(String correo) {
 		 if (correo == null || correo.isEmpty()) {
 	            return false;
